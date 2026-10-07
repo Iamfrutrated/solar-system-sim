@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Solar System · Earth Sky</title>
+  <link rel="stylesheet" href="style.css?v=11" />
+</head>
+<body class="view-split">
+  <header class="topbar">
+    <div class="brand">
+      <span class="sun-mark" aria-hidden="true"></span>
+      <div>
+        <h1>Solar System</h1>
+        <p>Coplanar orbits · Earth sky</p>
+      </div>
+    </div>
+
+    <div class="view-switch" role="tablist" aria-label="View">
+      <button type="button" data-layout="split" class="active">Simulations</button>
+      <button type="button" data-layout="system">System</button>
+      <button type="button" data-layout="sun">Sun years</button>
+    </div>
+
+    <div class="clock" id="clock">
+      <strong id="date-label">Day 0 · Year 0</strong>
+      <span id="time-label">Local 12:00</span>
+    </div>
+  </header>
+
+  <aside class="controls">
+    <div id="main-controls">
+    <div class="control-row transport">
+      <button type="button" id="play-btn" class="icon-btn" aria-pressed="true" title="Pause or resume">Pause</button>
+      <button type="button" id="reset-btn" class="icon-btn ghost">Reset</button>
+    </div>
+
+    <label class="slider">
+      <span>Simulation speed <em id="speed-readout">1 day / s</em></span>
+      <input id="speed" type="range" min="0" max="1" step="0.001" value="0.347" />
+    </label>
+
+    <label class="slider accent">
+      <span>Earth orbit speed <em id="orbit-readout">1.00×</em></span>
+      <input id="earth-orbit" type="range" min="0" max="1" step="0.001" value="0.406" />
+    </label>
+
+    <label class="slider accent">
+      <span>Earth spin speed <em id="spin-readout">1.00×</em></span>
+      <input id="earth-spin" type="range" min="0" max="1" step="0.001" value="0.406" />
+    </label>
+
+    <p class="hint">Orbit and spin only change Earth. Other bodies keep their table periods.</p>
+    </div>
+
+    <div id="sun-controls" hidden>
+      <div class="control-row transport">
+        <button type="button" id="sun-play-btn" class="icon-btn" aria-pressed="true">Pause</button>
+        <button type="button" id="sun-reset-btn" class="icon-btn ghost">Reset</button>
+      </div>
+      <label class="slider">
+        <span>Year speed <em id="sun-speed-readout">0.40 yr / s</em></span>
+        <input id="sun-speed" type="range" min="0" max="1" step="0.001" value="0.45" />
+      </label>
+      <label class="slider accent">
+        <span>Clock time each day <em id="sun-hour-readout">12:00</em></span>
+        <input id="sun-hour" type="range" min="0" max="23.75" step="0.25" value="12" />
+      </label>
+      <p class="hint">One sky snapshot per day at this clock time, so the Sun’s path over years stays readable at high speed.</p>
+    </div>
+
+    <label class="slider">
+      <span>Observer latitude <em id="lat-readout">40°N</em></span>
+      <input id="latitude" type="range" min="-80" max="80" step="1" value="40" />
+    </label>
+
+    <label class="toggle">
+      <input id="soft-sky" type="checkbox" />
+      <span>Soft day and night</span>
+    </label>
+  </aside>
+
+  <main id="stage" class="stage layout-split">
+    <section class="panel system-panel" aria-label="Solar system">
+      <header class="panel-head">
+        <h2>Grand scheme</h2>
+        <p>Scroll to zoom · drag to pan · colored rays are Earth sky sightlines</p>
+        <div class="scale-switch" role="group" aria-label="Distance scale">
+          <button type="button" id="scale-compact" class="active">All planets</button>
+          <button type="button" id="scale-real">True AU</button>
+        </div>
+      </header>
+      <canvas id="system-canvas"></canvas>
+    </section>
+
+    <section class="panel sky-panel" aria-label="Earth sky">
+      <header class="panel-head">
+        <h2>Sky from Earth</h2>
+        <p id="sky-caption">Looking up · rays leave Earth toward each body</p>
+        <ul id="sky-objects" class="sky-objects"></ul>
+      </header>
+      <canvas id="sky-canvas"></canvas>
+    </section>
+
+    <section class="panel sun-panel" aria-label="Sun over years">
+      <header class="panel-head">
+        <h2>Sun through the years</h2>
+        <p id="sun-caption">Daily snapshots at a fixed clock time</p>
+      </header>
+      <canvas id="sun-canvas"></canvas>
+    </section>
+  </main>
+
+  <aside class="inspector" id="inspector">
+    <p class="inspector-kicker">Selected body</p>
+    <h2 id="info-name">Sun</h2>
+    <p class="inspector-symbol" id="info-symbol">☉</p>
+    <dl id="info-list"></dl>
+  </aside>
+
+  <script src="app.js?v=11"></script>
+</body>
+</html>
